@@ -55,11 +55,6 @@ func (n *Node) HandleGet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !ok {
-		http.Error(w, "Key not found", http.StatusNotFound)
-		return
-	}
-
 	w.Write([]byte(value))
 }
 
