@@ -25,6 +25,7 @@ func main() {
     http.HandleFunc("/get", loggingMiddleware(n, n.HandleGet))
     http.HandleFunc("/put", loggingMiddleware(n, n.HandlePut))
     http.HandleFunc("/delete", loggingMiddleware(n, n.HandleDelete))
+    http.HandleFunc("/health", loggingMiddleware(n, n.HandleHealth))
 
 	// Start the server and listen on the specified address
 	log.Printf("Starting node at %s", n.ID)
