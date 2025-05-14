@@ -18,7 +18,7 @@ func TestKeyValueStore(t *testing.T) {
 	if exists {
 		t.Error("Expected 'false' for 'nonexistent' key, but it exists")
 	}
-	
+
 	deleted := kv.Delete("key1")
 	if !deleted {
 		t.Error("Expected true for deleting 'key1', but it was not deleted")
