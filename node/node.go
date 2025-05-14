@@ -57,6 +57,7 @@ func (n *Node) HandlePut(w http.ResponseWriter, r *http.Request) {
 	if targetNode == n.ID {
 		n.Store.Put(payload.Key, payload.Value)
 		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
 		return
 	}
 
@@ -73,6 +74,11 @@ func (n *Node) HandlePut(w http.ResponseWriter, r *http.Request) {
 }
 
 func (n *Node) HandleGet(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+	
 	key := r.URL.Query().Get("key")
 	if key == "" {
 		http.Error(w, "Missing key", http.StatusBadRequest)
@@ -107,6 +113,11 @@ func (n *Node) HandleGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (n *Node) HandleDelete(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodDelete {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+	
 	key := r.URL.Query().Get("key")
 	if key == "" {
 		http.Error(w, "Missing key", http.StatusBadRequest)
@@ -124,6 +135,7 @@ func (n *Node) HandleDelete(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		w.WriteHeader(http.StatusOK) // Just return HTTP 200 status
+		w.Write([]byte("OK")) 
 		return
 	}
 
